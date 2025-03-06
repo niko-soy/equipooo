@@ -3,133 +3,121 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Venta de Ropa Online</title>
+    <title>Registro de Ventas</title>
     <style>
         body {
             font-family: Arial, sans-serif;
-            background-color: #f4f4f9;
-            margin: 0;
-            padding: 0;
-        }
-
-        header {
-            background-color: #333;
-            color: white;
-            padding: 10px 0;
-            text-align: center;
-        }
-
-        h1 {
-            margin: 0;
-        }
-
-        nav {
-            text-align: center;
-            background-color: #444;
-            padding: 10px;
-        }
-
-        nav a {
-            color: white;
-            text-decoration: none;
-            margin: 0 20px;
-            font-size: 18px;
-        }
-
-        nav a:hover {
-            color: #ddd;
-        }
-
-        .content {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
             margin: 20px;
+            background-color: #f4f4f4;
         }
-
-        .product {
-            background-color: white;
-            border: 1px solid #ddd;
-            border-radius: 10px;
-            margin: 10px;
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        table, th, td {
+            border: 1px solid #000;
+        }
+        th, td {
             padding: 10px;
-            width: 200px;
             text-align: center;
         }
-
-        .product img {
-            max-width: 100%;
-            height: auto;
+        form {
+            margin-bottom: 20px;
+            background-color: #fff;
+            padding: 15px;
             border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
         }
-
-        .product h2 {
-            font-size: 20px;
-            margin: 10px 0;
+        label {
+            margin-right: 10px;
         }
-
-        .product p {
-            font-size: 16px;
-            color: #333;
+        input[type="text"], input[type="number"], input[type="date"] {
+            padding: 8px;
+            margin: 5px;
+            width: 200px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
         }
-
-        footer {
-            text-align: center;
-            padding: 20px;
-            background-color: #333;
+        button {
+            padding: 10px 15px;
+            background-color: #4CAF50;
             color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #45a049;
         }
     </style>
 </head>
 <body>
 
-<header>
-    <h1>Tienda de Ropa Online</h1>
-    <p>Encuentra lo mejor en moda para ti</p>
-</header>
+<h1>Registro de Ventas</h1>
 
-<nav>
-    <a href="#camisas">Camisas</a>
-    <a href="#pantalones">Pantalones</a>
-    <a href="#zapatos">Zapatos</a>
-    <a href="#accesorios">Accesorios</a>
-</nav>
+<!-- Formulario de registro -->
+<form id="salesForm">
+    <label for="date">Fecha:</label>
+    <input type="date" id="date" required><br><br>
 
-<div class="content">
+    <label for="product">Producto:</label>
+    <input type="text" id="product" required><br><br>
 
-    <!-- Camisas -->
-    <div id="camisas" class="product">
-        <img src="https://example.com/imagen-camisa.jpg" alt="Camisa">
-        <h2>Camisa Casual</h2>
-        <p>Estilo casual para todo tipo de ocasión.</p>
-    </div>
+    <label for="quantity">Cantidad:</label>
+    <input type="number" id="quantity" required><br><br>
 
-    <!-- Pantalones -->
-    <div id="pantalones" class="product">
-        <img src="https://example.com/imagen-pantalon.jpg" alt="Pantalón">
-        <h2>Pantalón de Mezclilla</h2>
-        <p>Confort y estilo, el pantalón perfecto para tu día a día.</p>
-    </div>
+    <label for="price">Precio Unitario:</label>
+    <input type="number" id="price" required><br><br>
 
-    <!-- Zapatos -->
-    <div id="zapatos" class="product">
-        <img src="https://example.com/imagen-zapatos.jpg" alt="Zapatos">
-        <h2>Zapatos Deportivos</h2>
-        <p>Comodidad y rendimiento en cada paso.</p>
-    </div>
+    <button type="submit">Registrar Venta</button>
+</form>
 
-    <!-- Accesorios -->
-    <div id="accesorios" class="product">
-        <img src="https://example.com/imagen-accesorios.jpg" alt="Accesorios">
-        <h2>Sombrero de Moda</h2>
-        <p>Un toque único a tu look.</p>
-    </div>
+<!-- Tabla para mostrar las ventas -->
+<table id="salesTable">
+    <thead>
+        <tr>
+            <th>Fecha</th>
+            <th>Producto</th>
+            <th>Cantidad</th>
+            <th>Precio Unitario</th>
+            <th>Total</th>
+        </tr>
+    </thead>
+    <tbody>
+        <!-- Las ventas se agregarán aquí -->
+    </tbody>
+</table>
 
-</div>
+<script>
+    // Función para agregar una nueva venta a la tabla
+    document.getElementById('salesForm').addEventListener('submit', function(event) {
+        event.preventDefault();
 
-<footer>
-    <p>&copy; 2025 Tienda de Ropa Online. Todos los derechos reservados.</p>
-</footer>
+        // Obtener los datos del formulario
+        const date = document.getElementById('date').value;
+        const product = document.getElementById('product').value;
+        const quantity = parseFloat(document.getElementById('quantity').value);
+        const price = parseFloat(document.getElementById('price').value);
+        const total = (quantity * price).toFixed(2);
+
+        // Crear una nueva fila en la tabla
+        const newRow = document.createElement('tr');
+        newRow.innerHTML = `
+            <td>${date}</td>
+            <td>${product}</td>
+            <td>${quantity}</td>
+            <td>${price.toFixed(2)}</td>
+            <td>${total}</td>
+        `;
+
+        // Agregar la fila a la tabla
+        document.querySelector('#salesTable tbody').appendChild(newRow);
+
+        // Limpiar el formulario
+        document.getElementById('salesForm').reset();
+    });
+</script>
 
 </body>
 </html>
